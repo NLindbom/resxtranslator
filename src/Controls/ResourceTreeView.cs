@@ -13,9 +13,14 @@ namespace ResxTranslator.Controls
 {
     public partial class ResourceTreeView : UserControl
     {
+        private List<TreeNode> _searchResult;
+        private int _currentSearchResultIndex;
+
         public ResourceTreeView()
         {
             InitializeComponent();
+
+            _searchResult = new List<TreeNode>();
 
             treeViewResx.ImageList = new ImageList();
             treeViewResx.ImageList.Images.Add(Resources.folderHS);
@@ -32,9 +37,51 @@ namespace ResxTranslator.Controls
             treeViewResx.Nodes.Clear();
         }
 
-        public void ExecuteFindInNodes(SearchParams searchParams)
+        public List<TreeNode> ExecuteFindInNodes(SearchParams searchParams)
         {
-            ExecuteFindInNodes(treeViewResx.Nodes.Cast<TreeNode>(), searchParams);
+            _searchResult = new List<TreeNode>();
+
+            ExecuteFindInNodes(treeViewResx.Nodes.Cast<TreeNode>(), searchParams, _searchResult);
+
+            if (_searchResult.Any())
+            {   
+                _currentSearchResultIndex = 0;
+                treeViewResx.SelectedNode = _searchResult[_currentSearchResultIndex];
+            }
+
+            foreach(var node in _searchResult)
+            {
+                node.BackColor = Color.GreenYellow;
+            }
+
+            return _searchResult;
+        }
+
+        public void FindNext()
+        {
+            if (!_searchResult.Any())
+                return;
+
+            _currentSearchResultIndex = (_currentSearchResultIndex + 1) % _searchResult.Count;
+
+            treeViewResx.SelectedNode = _searchResult[_currentSearchResultIndex];
+
+            SelectResourceFromTree();
+        }
+
+        public void FindPrevious()
+        {
+            if (!_searchResult.Any())
+                return;
+
+            if (_currentSearchResultIndex == 0)
+                _currentSearchResultIndex = _searchResult.Count;
+
+            _currentSearchResultIndex--;
+
+            treeViewResx.SelectedNode = _searchResult[_currentSearchResultIndex];
+
+            SelectResourceFromTree();
         }
 
         public void LoadResources(ResourceLoader loader)
@@ -63,15 +110,17 @@ namespace ResxTranslator.Controls
             ResourceOpened?.Invoke(this, e);
         }
 
-        private static void ExecuteFindInNodes(IEnumerable<TreeNode> searchNodes, SearchParams searchParams)
+        private static void ExecuteFindInNodes(IEnumerable<TreeNode> searchNodes, SearchParams searchParams, List<TreeNode> result)
         {
             foreach (var treeNode in searchNodes)
             {
                 treeNode.BackColor = Color.White;
-                ExecuteFindInNodes(treeNode.Nodes.Cast<TreeNode>(), searchParams);
+                ExecuteFindInNodes(treeNode.Nodes.Cast<TreeNode>(), searchParams, result);
 
                 if (MatchNodeToSearch(searchParams, treeNode))
-                    treeNode.BackColor = Color.GreenYellow;
+                {
+                    result.Add(treeNode);
+                }
             }
         }
 

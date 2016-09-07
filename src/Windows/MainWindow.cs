@@ -96,7 +96,12 @@ namespace ResxTranslator.Windows
             set
             {
                 _currentSearch = value;
-                resourceTreeView1.ExecuteFindInNodes(value);
+
+                var result = resourceTreeView1.ExecuteFindInNodes(value);
+
+                findNextToolStripMenuItem.Enabled =
+                findPreviousToolStripMenuItem.Enabled = result.Any();
+
                 resourceGrid1.CurrentSearch = _currentSearch;
             }
         }
@@ -288,6 +293,16 @@ namespace ResxTranslator.Windows
             var result = FindWindow.ShowDialog(this);
             if (result != null)
                 CurrentSearch = result;
+        }
+
+        private void findNextToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            resourceTreeView1.FindNext();
+        }
+
+        private void findPreviousToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            resourceTreeView1.FindPrevious();
         }
 
         private void LoadResourcesFromFolder(string path)

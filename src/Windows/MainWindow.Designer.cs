@@ -73,12 +73,14 @@ namespace ResxTranslator.Windows
             this.displayNullValuesAsGrayedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openLastDirectoryOnProgramStartToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.loadAssembliesFromResourcePathToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.setReferencePathsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.licenceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.loadAssembliesFromResourcePathToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.findNextToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.findPreviousToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.resourceTreeView1 = new ResxTranslator.Controls.ResourceTreeView();
             this.missingTranslationView1 = new ResxTranslator.Controls.MissingTranslationView();
             this.languageSettings1 = new ResxTranslator.Controls.LanguageSettings();
@@ -366,6 +368,8 @@ namespace ResxTranslator.Windows
             // 
             this.findToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.findToolStripMenuItem1,
+            this.findNextToolStripMenuItem,
+            this.findPreviousToolStripMenuItem,
             this.clearSearchToolStripMenuItem});
             this.findToolStripMenuItem.Name = "findToolStripMenuItem";
             this.findToolStripMenuItem.Size = new System.Drawing.Size(42, 20);
@@ -378,14 +382,14 @@ namespace ResxTranslator.Windows
             this.findToolStripMenuItem1.Name = "findToolStripMenuItem1";
             this.findToolStripMenuItem1.ShortcutKeyDisplayString = "Ctrl+F";
             this.findToolStripMenuItem1.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.F)));
-            this.findToolStripMenuItem1.Size = new System.Drawing.Size(146, 22);
+            this.findToolStripMenuItem1.Size = new System.Drawing.Size(196, 22);
             this.findToolStripMenuItem1.Text = "&Find...";
             this.findToolStripMenuItem1.Click += new System.EventHandler(this.findToolStripMenuItem1_Click);
             // 
             // clearSearchToolStripMenuItem
             // 
             this.clearSearchToolStripMenuItem.Name = "clearSearchToolStripMenuItem";
-            this.clearSearchToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
+            this.clearSearchToolStripMenuItem.Size = new System.Drawing.Size(196, 22);
             this.clearSearchToolStripMenuItem.Text = "&Clear search";
             this.clearSearchToolStripMenuItem.Click += new System.EventHandler(this.clearSearchToolStripMenuItem_Click);
             // 
@@ -497,6 +501,12 @@ namespace ResxTranslator.Windows
             this.toolStripSeparator2.Name = "toolStripSeparator2";
             this.toolStripSeparator2.Size = new System.Drawing.Size(399, 6);
             // 
+            // loadAssembliesFromResourcePathToolStripMenuItem
+            // 
+            this.loadAssembliesFromResourcePathToolStripMenuItem.Name = "loadAssembliesFromResourcePathToolStripMenuItem";
+            this.loadAssembliesFromResourcePathToolStripMenuItem.Size = new System.Drawing.Size(402, 22);
+            this.loadAssembliesFromResourcePathToolStripMenuItem.Text = "Load assemblies from opened resource directory";
+            // 
             // setReferencePathsToolStripMenuItem
             // 
             this.setReferencePathsToolStripMenuItem.Name = "setReferencePathsToolStripMenuItem";
@@ -518,29 +528,41 @@ namespace ResxTranslator.Windows
             // 
             this.helpToolStripMenuItem1.Image = global::ResxTranslator.Properties.Resources.Help;
             this.helpToolStripMenuItem1.Name = "helpToolStripMenuItem1";
-            this.helpToolStripMenuItem1.Size = new System.Drawing.Size(139, 22);
+            this.helpToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
             this.helpToolStripMenuItem1.Text = "&Help";
             this.helpToolStripMenuItem1.Click += new System.EventHandler(this.helpToolStripMenuItem1_Click);
             // 
             // licenceToolStripMenuItem
             // 
             this.licenceToolStripMenuItem.Name = "licenceToolStripMenuItem";
-            this.licenceToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
+            this.licenceToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.licenceToolStripMenuItem.Text = "View licence";
             this.licenceToolStripMenuItem.Click += new System.EventHandler(this.licenceToolStripMenuItem_Click);
             // 
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.aboutToolStripMenuItem.Text = "&About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
-            // loadAssembliesFromResourcePathToolStripMenuItem
+            // findNextToolStripMenuItem
             // 
-            this.loadAssembliesFromResourcePathToolStripMenuItem.Name = "loadAssembliesFromResourcePathToolStripMenuItem";
-            this.loadAssembliesFromResourcePathToolStripMenuItem.Size = new System.Drawing.Size(402, 22);
-            this.loadAssembliesFromResourcePathToolStripMenuItem.Text = "Load assemblies from opened resource directory";
+            this.findNextToolStripMenuItem.Enabled = false;
+            this.findNextToolStripMenuItem.Name = "findNextToolStripMenuItem";
+            this.findNextToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F3;
+            this.findNextToolStripMenuItem.Size = new System.Drawing.Size(196, 22);
+            this.findNextToolStripMenuItem.Text = "Find next ";
+            this.findNextToolStripMenuItem.Click += new System.EventHandler(this.findNextToolStripMenuItem_Click);
+            // 
+            // findPreviousToolStripMenuItem
+            // 
+            this.findPreviousToolStripMenuItem.Enabled = false;
+            this.findPreviousToolStripMenuItem.Name = "findPreviousToolStripMenuItem";
+            this.findPreviousToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Shift | System.Windows.Forms.Keys.F3)));
+            this.findPreviousToolStripMenuItem.Size = new System.Drawing.Size(196, 22);
+            this.findPreviousToolStripMenuItem.Text = "Find previous";
+            this.findPreviousToolStripMenuItem.Click += new System.EventHandler(this.findPreviousToolStripMenuItem_Click);
             // 
             // resourceTreeView1
             // 
@@ -675,6 +697,8 @@ namespace ResxTranslator.Windows
         private ToolStripMenuItem setReferencePathsToolStripMenuItem;
         private ToolStripSeparator toolStripSeparator2;
         private ToolStripMenuItem loadAssembliesFromResourcePathToolStripMenuItem;
+        private ToolStripMenuItem findNextToolStripMenuItem;
+        private ToolStripMenuItem findPreviousToolStripMenuItem;
     }
 }
 
