@@ -6,14 +6,20 @@ namespace ResxTranslator.Windows
 {
     public partial class FindWindow : Form
     {
-        public static SearchParams ShowDialog(Form owner)
+        public static SearchParams ShowDialog(Form owner, out bool applyToFilter)
         {
             using (var window = new FindWindow())
             {
                 window.Icon = owner.Icon;
                 window.StartPosition = FormStartPosition.CenterParent;
                 if (window.ShowDialog() == DialogResult.OK && !string.IsNullOrEmpty(window.CurrentSearch.Text))
+                {
+                    applyToFilter = window.ApplyToFilter;
+
                     return window.CurrentSearch;
+                }
+                applyToFilter = false;
+
                 return null;
             }
         }
@@ -41,6 +47,11 @@ namespace ResxTranslator.Windows
         }
 
         private SearchParams CurrentSearch { get; set; }
+
+        private bool ApplyToFilter
+        {
+            get { return checkBoxFilter.Checked; }
+        }
 
         private void FindDialog_Load(object sender, EventArgs e)
         {

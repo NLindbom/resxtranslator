@@ -45,6 +45,7 @@
             this.checkBoxCS = new System.Windows.Forms.CheckBox();
             this.buttonFind = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
+            this.checkBoxFilter = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -180,6 +181,7 @@
             // 
             // groupBox4
             // 
+            this.groupBox4.Controls.Add(this.checkBoxFilter);
             this.groupBox4.Controls.Add(this.checkBoxWord);
             this.groupBox4.Controls.Add(this.checkBoxCS);
             this.groupBox4.Location = new System.Drawing.Point(16, 173);
@@ -228,6 +230,16 @@
             this.button1.TabIndex = 5;
             this.button1.Text = "Cancel";
             this.button1.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxFilter
+            // 
+            this.checkBoxFilter.AutoSize = true;
+            this.checkBoxFilter.Location = new System.Drawing.Point(194, 19);
+            this.checkBoxFilter.Name = "checkBoxFilter";
+            this.checkBoxFilter.Size = new System.Drawing.Size(86, 17);
+            this.checkBoxFilter.TabIndex = 2;
+            this.checkBoxFilter.Text = "Apply to filter";
+            this.checkBoxFilter.UseVisualStyleBackColor = true;
             // 
             // FindWindow
             // 
@@ -280,5 +292,6 @@
         private System.Windows.Forms.Button buttonFind;
         private System.Windows.Forms.CheckBox checkBoxFile;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.CheckBox checkBoxFilter;
     }
 }

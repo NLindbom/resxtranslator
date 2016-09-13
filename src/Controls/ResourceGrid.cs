@@ -6,6 +6,7 @@ using System.Windows.Forms;
 using ResxTranslator.ResourceOperations;
 using ResxTranslator.Windows;
 using System.Text.RegularExpressions;
+using System.Collections.Generic;
 
 namespace ResxTranslator.Controls
 {
@@ -62,6 +63,11 @@ namespace ResxTranslator.Controls
                 _showNullValuesAsGrayed = value;
                 ApplyConditionalFormatting();
             }
+        }
+
+        public IEnumerable<string> VisibleColumns
+        {
+            get { return dataGridView1.Columns.Cast<DataGridViewColumn>().Where(x => x.Visible).Select(x => x.Name); }
         }
 
         public void ApplyConditionalFormatting()

@@ -61,6 +61,15 @@ namespace ResxTranslator.Windows
                 resourceGrid1.CurrentResource.EvaluateAllRows(languageIds);
                 resourceGrid1.SetVisibleLanguageColumns(languageIds);
                 resourceGrid1.ApplyConditionalFormatting();
+                resourceFilter1.RefreshColumnNames(resourceGrid1.VisibleColumns, true);
+            };
+
+            resourceFilter1.ResourceFilterChanged += (sender, args) =>
+            {
+                if (CurrentResource == null || resourceFilter1.Filter == null) return;
+
+                CurrentResource.StringsTable.DefaultView.RowFilter = resourceFilter1.Filter;
+                resourceGrid1.ApplyConditionalFormatting();
             };
 
             Settings.Binder.BindControl(ignoreEmptyResourcesToolStripMenuItem,
@@ -131,6 +140,10 @@ namespace ResxTranslator.Windows
                     resourceGrid1.SetVisibleLanguageColumns(
                         languageSettings1.EnabledLanguages.Select(x => x.Name).ToArray());
 
+                    resourceFilter1.Enabled = (value != null);
+                    resourceFilter1.CurrentResource = value;
+                    resourceFilter1.RefreshColumnNames(resourceGrid1.VisibleColumns, true);
+
                     tabPageEditedResource.Text = value?.Filename ?? "No resource loaded";
                     UpdateMenuStrip();
                 });
@@ -141,7 +154,8 @@ namespace ResxTranslator.Windows
         {
             this.InvokeIfRequired(x =>
             {
-                languageSettings1.RefreshLanguages(ResourceLoader.GetUsedLanguages(), true);
+                var usedLanguages = ResourceLoader.GetUsedLanguages();
+                languageSettings1.RefreshLanguages(usedLanguages, true);
                 UpdateMenuStrip();
             });
         }
@@ -290,9 +304,13 @@ namespace ResxTranslator.Windows
 
         private void findToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            var result = FindWindow.ShowDialog(this);
+            bool applyToFilter;
+            var result = FindWindow.ShowDialog(this, out applyToFilter);
             if (result != null)
+            {
                 CurrentSearch = result;
+                resourceFilter1.FilterText = result.Text;
+            }
         }
 
         private void findNextToolStripMenuItem_Click(object sender, EventArgs e)
@@ -410,7 +428,7 @@ namespace ResxTranslator.Windows
 
                 resourceTreeView1.LoadResources(ResourceLoader);
 
-                var usedLanguages = ResourceLoader.GetUsedLanguages().ToList();
+                var usedLanguages = ResourceLoader.GetUsedLanguages();
 
                 languageSettings1.RefreshLanguages(usedLanguages, false);
 

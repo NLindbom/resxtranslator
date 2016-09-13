@@ -66,6 +66,7 @@
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
+    <Reference Include="System.Data.Linq" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xml.Linq">
@@ -81,6 +82,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controls\ResourceFilter.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\ResourceFilter.Designer.cs">
+      <DependentUpon>ResourceFilter.cs</DependentUpon>
+    </Compile>
     <Compile Include="Tools\ComboBoxWrapper.cs" />
     <Compile Include="Controls\LanguageSettings.cs">
       <SubType>UserControl</SubType>
@@ -114,6 +121,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\MissingTranslationView.resx">
       <DependentUpon>MissingTranslationView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\ResourceFilter.resx">
+      <DependentUpon>ResourceFilter.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\ResourceGrid.resx">
       <DependentUpon>ResourceGrid.cs</DependentUpon>
