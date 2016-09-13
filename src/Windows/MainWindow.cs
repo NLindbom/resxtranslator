@@ -309,7 +309,8 @@ namespace ResxTranslator.Windows
             if (result != null)
             {
                 CurrentSearch = result;
-                resourceFilter1.FilterText = result.Text;
+                if (applyToFilter)
+                    resourceFilter1.FilterText = result.Text;
             }
         }
 
